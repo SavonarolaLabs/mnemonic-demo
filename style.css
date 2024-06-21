@@ -1,0 +1,9 @@
+body {
+    font-family: 'Balsamiq Sans', cursive;
+}
+
+.word{
+    background: rgb(255,229,153);
+    border-radius: 2px;
+    border: 2px solid black;
+}

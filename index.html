@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 p-4">
+    <div class="text-2xl w-full text-center">12 Word Mnemonic</div>
+
+    <a class="bg-gray-50" href="https://github.com/bitcoin/bips/blob/master/bip-0039/english.txt">
+        bip39
+    </a>
+    <div id="bip39" class="word overflow-auto text-sm" style="line-height: 4px; width: 200px; overflow-y: scroll;">
+    </div>
+    
+    <script type="module">
+        import { bip39 } from './bip39-english.js';
+    
+        const container = document.getElementById('bip39');
+        bip39.forEach((word, i) => {
+            const wordContainer = document.createElement('div');
+            wordContainer.className = 'word-container flex items-center py-1';
+            
+            const indexSpan = document.createElement('span');
+            indexSpan.className = 'index text-xs text-gray-500 mr-2';
+            indexSpan.textContent = i + 1;
+    
+            const wordDiv = document.createElement('div');
+            wordDiv.className = 'word1';
+            wordDiv.textContent = word;
+    
+            wordContainer.appendChild(indexSpan);
+            wordContainer.appendChild(wordDiv);
+            container.appendChild(wordContainer);
+        });
+    </script>
+    
+    <style>
+        #bip39 {
+            max-height: 400px;
+            overflow-y: scroll;
+        }
+        .word-container {
+            display: flex;
+            align-items: center;
+        }
+        .index {
+            font-size: 0.75rem;
+            color: #6b7280;
+            width: 30px;
+            text-align: right;
+            margin-right: 8px;
+            user-select: none;
+        }
+        .word1 {
+            margin-bottom: 4px;
+        }
+        #bip39::-webkit-scrollbar {
+            width: 12px;
+        }
+        #bip39::-webkit-scrollbar-thumb {
+            background-color: rgb(139, 113, 33);
+            border-radius: 6px;
+        }
+        #bip39::-webkit-scrollbar-track {
+            background-color: #00000018;
+        }
+    </style>
+    
+    
+    
+</body>
+</html>
