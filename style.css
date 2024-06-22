@@ -1,9 +1,53 @@
-body {
+html, body {
     font-family: 'Balsamiq Sans', cursive;
+    min-height: 100vh;
 }
 
 .word{
     background: rgb(255,229,153);
     border-radius: 2px;
     border: 2px solid black;
+}
+
+.bytesInput{
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    border: 2px solid black;
+    border-radius: 4px;
+    padding-left: 1em;
+    padding-right: 1em;
+    background: rgb(255,229,153);
+    min-width: 142px;
+}
+
+#bip39 {
+    max-height: 616px;
+    overflow-y: scroll;
+}
+.word-container {
+    display: flex;
+    align-items: center;
+}
+.index {
+    font-size: 0.75rem;
+    color: #6b7280;
+    width: 30px;
+    text-align: right;
+    margin-right: 8px;
+    user-select: none;
+}
+.word1 {
+    margin-bottom: 4px;
+}
+#bip39::-webkit-scrollbar {
+    width: 12px;
+}
+#bip39::-webkit-scrollbar-thumb {
+    background-color: rgb(139, 113, 33);
+    border-radius: 6px;
+}
+#bip39::-webkit-scrollbar-track {
+    background-color: #00000018;
 }

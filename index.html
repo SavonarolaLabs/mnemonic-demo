@@ -8,14 +8,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-50 p-4">
-    <div class="text-2xl w-full text-center">12 Word Mnemonic</div>
+<body class=" h-full bg-gray-50 p-4 flex flex-col items-center justify-center">
 
-    <a class="bg-gray-50" href="https://github.com/bitcoin/bips/blob/master/bip-0039/english.txt">
-        bip39
-    </a>
-    <div id="bip39" class="word overflow-auto text-sm" style="line-height: 4px; width: 200px; overflow-y: scroll;">
+    <div class="flex items-center flex-row gap-10">
+        <div>
+            <div class="text-gray-400">random bytes</div>
+            <div id="bytesContainer" class="flex flex-col gap-2 font-mono">
+            </div>
+        </div>
+        <div>→</div>
+        <div>
+            <div class="text-gray-400">bip39/english</div>
+            <div id="bip39" class="word overflow-auto text-sm" style="line-height: 4px; width: 200px; overflow-y: scroll;">
+            </div>
+        </div>
+        <div>→</div>
+        <div>
+            <div class="text-gray-400">12 word mneminic</div>
+            <div id="mneminicContainer" class="flex flex-col gap-2 font-mono">
+            </div>
+        </div>
     </div>
+
     
     <script type="module">
         import { bip39 } from './bip39-english.js';
@@ -37,41 +51,35 @@
             wordContainer.appendChild(wordDiv);
             container.appendChild(wordContainer);
         });
+
+
+        const bytesContainer = document.getElementById('bytesContainer');
+        const sections = new Array(11).fill(0);
+        let indices = []
+        sections.forEach((s)=>{
+            addRandomWord(11)
+        })
+        addRandomWord(7)
+
+        function addRandomWord(len){
+            const wordDiv = document.createElement('div');
+            wordDiv.className = 'bytesInput';
+            
+            const randomBytes = new Uint8Array(2);
+            window.crypto.getRandomValues(randomBytes);
+            const binaryString = Array.from(randomBytes).flatMap(byte => byte.toString(2).padStart(8, '0')).join('').slice(0,len);
+            indices.push(binaryString);
+            wordDiv.textContent = binaryString;
+            bytesContainer.appendChild(wordDiv);
+        }
+
+        const mneminicContainer = document.getElementById('mneminicContainer');
+        indices.forEach((s)=>{
+            const wordDiv = document.createElement('div');
+            wordDiv.className = 'bytesInput';
+            wordDiv.textContent = bip39[parseInt(s, 2)];
+            mneminicContainer.appendChild(wordDiv);
+        })
     </script>
-    
-    <style>
-        #bip39 {
-            max-height: 400px;
-            overflow-y: scroll;
-        }
-        .word-container {
-            display: flex;
-            align-items: center;
-        }
-        .index {
-            font-size: 0.75rem;
-            color: #6b7280;
-            width: 30px;
-            text-align: right;
-            margin-right: 8px;
-            user-select: none;
-        }
-        .word1 {
-            margin-bottom: 4px;
-        }
-        #bip39::-webkit-scrollbar {
-            width: 12px;
-        }
-        #bip39::-webkit-scrollbar-thumb {
-            background-color: rgb(139, 113, 33);
-            border-radius: 6px;
-        }
-        #bip39::-webkit-scrollbar-track {
-            background-color: #00000018;
-        }
-    </style>
-    
-    
-    
 </body>
 </html>
